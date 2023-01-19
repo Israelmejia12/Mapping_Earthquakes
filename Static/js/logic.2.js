@@ -1,7 +1,7 @@
 
 
-// Create the map object with center and zoom level.
-let map = L.map('mapid').setView([30, 30], 2);
+// Create the map object with center at the San Francisco airport.
+let map = L.map('mapid').setView([37.5, -122.5], 10);
 
 
 // We create the tile layer that will be the background of our map.
@@ -9,7 +9,6 @@ let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tile
   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
   maxZoom: 18,
   accessToken: API_KEY
-
 });
 // Then we add our 'streets' tile layer to the map.
 streets.addTo(map);
@@ -39,21 +38,13 @@ let sanFranAirport =
   ]
 };
 
-// Accessing the airport GeoJSON URL
-let airportData = "https://raw.githubusercontent.com/israelmejia12/Mapping_Earthquakes/main/majorAirports.json";
-
-
-// Add GeoJSON data.
+// Grabbing our GeoJSON data.
 L.geoJSON(sanFranAirport, {
   onEachFeature: function(feature, layer) {
     console.log(layer);
-    layer.bindPopup("<h1 Airport code>"+ feature.properties.faa +"</h1>"
-    + "<hr Airport Name>" + feature.properties.name + "<h/r>")
+    layer.bindPopup("<h1>"+ feature.properties.city +"</h1>"
+    + "<h3>" + feature.properties.tz-offset + "<h/r>")
   
    }
 
-});
-   
-// Creating a GeoJSON layer with the retrieved data.
-L.geoJSON(data).addTo(map);
-
+}).addTo(map);
