@@ -32,8 +32,8 @@ let LesterBPearsonInternationalAirport =
       "tz": "America/Toronto"
     },
     "geometry": {
-        "type":"Point", 
-        "coordinates": [-79.63059997559999, 43.6772003174]
+      "type": "Point",
+      "coordinates": [-79.63059997559999, 43.6772003174]
     }
   }
   ]
@@ -42,20 +42,28 @@ let LesterBPearsonInternationalAirport =
 // Accessing the airport GeoJSON URL
 let airportData = "https://raw.githubusercontent.com/israelmejia12/Mapping_Earthquakes/main/majorAirports.json";
 
-
-  // Add GeoJSON data.
-  L.geoJSON(LesterBPearsonInternationalAirport, {
-    onEachFeature: function (feature, layer) {
-      console.log(layer);
-      layer.bindPopup("<h1 Airport code>" + feature.properties.faa + "</h1>"
-        + "<hr Airport Name>" + feature.properties.name + "<h/r>")
-
-
-
-    }
-
-  });
-
+// Grabbing our GeoJSON data.
+d3.json(airportData).then(function (data) {
+  console.log(data);
   // Creating a GeoJSON layer with the retrieved data.
   L.geoJSON(data).addTo(map);
+});
+
+
+
+// Add GeoJSON data.
+L.geoJSON(LesterBPearsonInternationalAirport, {
+
+pointTolayer: function (feature, latlng) {
+  console.log(feature);
+return L.marker(latlng)
+.bindPopup("<h2>" +feature.properties.city + "<h/2>");
+
+
+  }
+
+}).addTo(map);
+
+// Creating a GeoJSON layer with the retrieved data.
+L.geoJSON(LesterBPearsonInternationalAirport).addTo(map);
 
