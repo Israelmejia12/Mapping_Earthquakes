@@ -15,25 +15,25 @@ let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tile
 streets.addTo(map);
 
 // Add GeoJSON data.
-let sanFranAirport =
+let LesterBPearsonInternationalAirport =
 {
   "type": "FeatureCollection", "features": [{
     "type": "Feature",
     "properties": {
-      "id": "3469",
-      "name": "San Francisco International Airport",
-      "city": "San Francisco",
-      "country": "United States",
-      "faa": "SFO",
-      "icao": "KSFO",
-      "alt": "14",
-      "tz-offset": "-8",
+      "id": "193",
+      "name": "Lester B. Pearson International Airport",
+      "city": "Toronto",
+      "country": "Canada",
+      "faa": "YYZ",
+      "icao": "CYYZ",
+      "alt": "569",
+      "tz-offset": "-5",
       "dst": "A",
-      "tz": "America/Los_Angeles"
+      "tz": "America/Toronto"
     },
     "geometry": {
-      "type": "Point",
-      "coordinates": [-122.375, 37.61899948120117]
+        "type":"Point", 
+        "coordinates": [-79.63059997559999, 43.6772003174]
     }
   }
   ]
@@ -43,17 +43,19 @@ let sanFranAirport =
 let airportData = "https://raw.githubusercontent.com/israelmejia12/Mapping_Earthquakes/main/majorAirports.json";
 
 
-// Add GeoJSON data.
-L.geoJSON(sanFranAirport, {
-  onEachFeature: function(feature, layer) {
-    console.log(layer);
-    layer.bindPopup("<h1 Airport code>"+ feature.properties.faa +"</h1>"
-    + "<hr Airport Name>" + feature.properties.name + "<h/r>")
-  
-   }
+  // Add GeoJSON data.
+  L.geoJSON(LesterBPearsonInternationalAirport, {
+    onEachFeature: function (feature, layer) {
+      console.log(layer);
+      layer.bindPopup("<h1 Airport code>" + feature.properties.faa + "</h1>"
+        + "<hr Airport Name>" + feature.properties.name + "<h/r>")
 
-});
-   
-// Creating a GeoJSON layer with the retrieved data.
-L.geoJSON(data).addTo(map);
+
+
+    }
+
+  });
+
+  // Creating a GeoJSON layer with the retrieved data.
+  L.geoJSON(data).addTo(map);
 
