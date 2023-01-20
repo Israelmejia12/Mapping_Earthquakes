@@ -30,11 +30,19 @@ attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap
     accessToken: API_KEY
 });
 
+// Create the map object with center, zoom level and default layer.
+let map = L.map('mapid', {
+  center: [43.7, -79.3],
+  zoom: 11,
+  layers: [satellitesStreets]
+});
+
 // Create a base layer that holds both maps.
-let tile = {
-  light: light,
-  Dark: dark
-};
+let baseMaps = {
+  "Satellite": satellitesStreets,
+  "Dark": dark,
+  "Light": light
+  };
 
 
 // Accessing the Toronto neighborhoods GeoJSON URL.
@@ -50,15 +58,6 @@ L.geoJson(data).addTo(map);
 
 });
 
-// Create a base layer that holds both maps.
-let baseMaps = {"Satellite": satellitesStreets};
-
-// Create the map object with center, zoom level and default layer.
-let map = L.map('mapid', {
-  center: [43.7, -79.3],
-  zoom: 11,
-  layers: [satellitesStreets]
-});
 
 // Pass our map layers into our layer control and add the layer control to the map
 L.control.layers(baseMaps).addTo(map);
