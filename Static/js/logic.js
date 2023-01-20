@@ -60,7 +60,7 @@ let LesterBPearsonInternationalAirport =
 };
 
 // Accessing the airport GeoJSON URL
-let airportData = "https://raw.githubusercontent.com/Mapping_Earthquakes/majorAirports.json";
+let airportData = "https://raw.githubusercontent.com/Israelmejia12/Mapping_Earthquakes/Mapping_GeoJSON_Points/majorAirports.json";
 
 // Grabbing our GeoJSON data.
 d3.json(airportData).then(function (data) {
