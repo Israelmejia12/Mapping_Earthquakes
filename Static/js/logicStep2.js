@@ -6,7 +6,22 @@ let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-str
   accessToken: API_KEY
 });
 
+// We create the dark view tile layer that will be an option for our map.
+let satellitesStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    accessToken: API_KEY
+});
 
+let light = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  maxZoom: 18,
+  id: 'mapbox/light-v10',
+  tileSize: 512,
+  zoomOffset: -1,
+  accessToken: API_KEY
+
+});
 
 // We create the dark view tile layer that will be an option for our map.
 let dark = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -37,22 +52,10 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geo
 //Grabbing our GeoJson data.
 d3.json(torontoHoods).then(function(data) {
 console.log(data);
-// Creating a GeoJSON layer with the retrieved data.
-L.geoJSON(data, {
+//Creating a GeoJson layer with the retrieved data.
+L.geoJson(data).addTo(map);
 
-  // We turn each feature into a circleMarker on the map.
-  
-  // This function returns the style data for each of the earthquakes we plot on
-// the map. We pass the magnitude of the earthquake into a function
-// to calculate the radius.
-function styleInfo(feature) {
-  return {
-    opacity: 1,
-    fillOpacity: 1,
-    fillColor: "#ffae42",
-    color: "#000000",
-    radius: getRadius(),
-    stroke: true,
-    weight: 0.5
-  };
-}
+});
+
+// Pass our map layers into our layer control and add the layer control to the map
+L.control.layers(baseMaps).addTo(map);
