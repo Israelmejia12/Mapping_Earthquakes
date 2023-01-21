@@ -72,7 +72,9 @@ style: styleInfo,
   onEachFeature: function(feature, layer) {
   layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
 }
-}).addTo(map);
+}).addTo(earthquakes);
+
+
 
       // This function determines the color of the circle based on the magnitude of the earthquake.
 function getColor(magnitude) {
@@ -94,3 +96,16 @@ function getColor(magnitude) {
   return "#98ee00";
 }
   });
+
+  // Create the earthquake layer for our map.
+let earthquakes = new L.layerGroup();
+
+// We define an object that contains the overlays.
+// This overlay will be visible all the time.
+let overlays = {
+  Earthquakes: earthquakes
+};
+
+// Then we add a control to the map that will allow the user to change
+// which layers are visible.
+L.control.layers(baseMaps, overlays).addTo(map);
